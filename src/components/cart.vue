@@ -16,17 +16,11 @@
           type="button"
           id="decrement-button"
           class="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-1 focus:ring-gray-100 focus:ring-2 focus:outline-none"
-        >
-          <img src="./icons/kurang.svg" class="size-2 text-gray-900 dark:text-white" alt="" />
-        </button>
-        <!-- <button
-          type="button"
-          id="decrement-button"
-          class="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-1 focus:ring-gray-100 focus:ring-2 focus:outline-none"
           @click="buttonKurang(index)"
         >
           <img src="./icons/kurang.svg" class="size-2 text-gray-900 dark:text-white" alt="" />
-        </button> -->
+        </button>
+
         <div class="text-center m-2">1</div>
         <!-- <div class="text-center m-2">
           {{ item.quantity }}
@@ -35,22 +29,14 @@
           type="button"
           id="increment-button"
           class="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-1 focus:ring-gray-100 focus:ring-2 focus:outline-none"
-        >
-          <img src="./icons/tambah.svg" class="size-2 text-gray-900 dark:text-white" alt="" />
-        </button>
-        <!-- <button
-          type="button"
-          id="increment-button"
-          class="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-1 focus:ring-gray-100 focus:ring-2 focus:outline-none"
           @click="buttonTambah(index)"
         >
           <img src="./icons/tambah.svg" class="size-2 text-gray-900 dark:text-white" alt="" />
-        </button> -->
+        </button>
       </div>
     </div>
     <div class="trash">
-      <button>
-        <!-- <button @click="removeFromCart(index)"> -->
+      <button @click="removeFromCart(index)">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

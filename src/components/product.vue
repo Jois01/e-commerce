@@ -28,20 +28,16 @@
           >
             <img :src="product.images" class="size-full object-cover object-center" />
           </div>
-          <h3 class="mt-2 text-xl">{{ product.title }}</h3>
+          <RouterLink
+            :to="{ name: 'DetailProduct', params: { id: product.id } }"
+            class="mt-2 text-xl"
+            >{{ product.title }}</RouterLink
+          >
           <h3 class="mt-2 text-sm text-gray-700 bg-gray-100 rounded-md w-24 text-center">
             {{ product.category }}
           </h3>
           <!-- <div class="text-gray-700 mt-2">{{ product.description }}</div> -->
-          <div class="justify-between flex mt-2">
-            <p class="text-lg font-medium text-gray-900">{{ product.price }}</p>
-            <button
-              class="bg-blue-500 text-white w-32 py-2 text-center rounded-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
-              @click="addToCart"
-            >
-              add to cart
-            </button>
-          </div>
+          <p class="text-lg font-medium text-gray-900">{{ product.price }}</p>
         </a>
       </div>
     </div>
@@ -79,6 +75,13 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    search() {
+      fetch('https://dummyjson.com/products/search?q=phone')
+        .then((res) => res.json())
+        .then((data) => {
+          this.products = data.products
+        })
     },
   },
 }
