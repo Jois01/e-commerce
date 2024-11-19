@@ -1,17 +1,24 @@
 <template>
   <div class="bg-white shadow-lg m-8 rounded-md">
-    <div class="flex items-center p-4 border-b border-gray-200">
-      <input
-        type="text"
-        class="m-4 w-96 p-2 border border-gray-200 rounded-md"
-        v-model="search"
-        placeholder="Search..."
-      />
-      <img src="../assets/searct.svg" class="size-6" />
+    <div class="items-center p-4 border-b border-gray-200 md:flex justify-between block">
+      <h2 class="text-2xl ml-4">All Products</h2>
+
+      <form class="md:w-96 m-4">
+        <div class="relative">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <img src="../assets/searct.svg" class="size-6 item-center" />
+          </div>
+          <input
+            type="search"
+            id="default-search"
+            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+            v-model="search"
+            placeholder="Search..."
+          />
+        </div>
+      </form>
     </div>
     <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-      <h2 class="sr-only">Products</h2>
-
       <div
         class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
       >
@@ -19,16 +26,22 @@
           <div
             class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7"
           >
-            <img
-              :src="product.images"
-              class="size-full object-cover object-center group-hover:opacity-75"
-            />
+            <img :src="product.images" class="size-full object-cover object-center" />
           </div>
-          <h3 class="mt-4  text-xl ">{{ product.title }}</h3>
-          <h3 class="mt-4 text-sm text-gray-700 bg-gray-100 rounded-md w-24 text-center">
+          <h3 class="mt-2 text-xl">{{ product.title }}</h3>
+          <h3 class="mt-2 text-sm text-gray-700 bg-gray-100 rounded-md w-24 text-center">
             {{ product.category }}
           </h3>
-          <p class="mt-1 text-lg font-medium text-gray-900">{{ product.price }}</p>
+          <!-- <div class="text-gray-700 mt-2">{{ product.description }}</div> -->
+          <div class="justify-between flex mt-2">
+            <p class="text-lg font-medium text-gray-900">{{ product.price }}</p>
+            <button
+              class="bg-blue-500 text-white w-32 py-2 text-center rounded-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+              @click="addToCart"
+            >
+              add to cart
+            </button>
+          </div>
         </a>
       </div>
     </div>
