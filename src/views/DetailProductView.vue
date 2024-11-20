@@ -1,12 +1,12 @@
 <template>
   <div
-    class="bg-white rounded-md container mx-auto flex m-8 md:px-24 md:py-10 md:flex-row flex-col items-center"
+    class="bg-white rounded-md container mx-auto flex m- md:px-24 md:py-10 md:flex-row flex-col items-center"
   >
     <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-10">
       <div class="col-sel-2">
         <img :src="product.images" alt="image" />
       </div>
-      <div class="items-center justify-center">
+      <div class="items-center justify-center m-10">
         <h1 class="text-3xl font-bold text-left">{{ product.title }}</h1>
         <p class="text-lg text-left justify-center">
           {{ product.description }}
@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     axios
-      .get('https://dummyjson.com/products/1' + this.$route.params.id)
+      .get('https://dummyjson.com/products/' + this.$route.params.id)
       .then((response) => {
         this.product = response.data
       })
@@ -43,16 +43,19 @@ export default {
       })
   },
   methods: {
-    addToCart(product) {
-      const itemInCart = this.cart.find((item) => item.id === this.product.id)
-      if (itemInCart) {
-        itemInCart.quantity++
-      } else {
-        this.cart.push({
-          ...product,
+    addToCart() {
+      axios
+        .post('https://dummyjson.com/carts/addItem', {
+          productId: this.product.id,
+          price: this.product.price,
           quantity: 1,
         })
-      }
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     },
   },
 }

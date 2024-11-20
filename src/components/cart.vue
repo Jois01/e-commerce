@@ -1,10 +1,10 @@
 <template>
-  <div class="flex">
+  <div class="flex" v-for="product in products" :key="product.id">
     <img
       :src="product.images"
       class="size-full object-cover object-center group-hover:opacity-75"
     />
-  
+
     <h3 class="mt-2 text-xl">{{ product.title }}</h3>
     <div class="flex justify-between">
       <div class="flex items-center">
@@ -59,7 +59,21 @@ export default {
       cart: [],
     }
   },
+
   methods: {
+    addToCart() {
+      axios
+        .post('http://localhost:5173/cart', {
+          id: this.item.id,
+          quantity: this.item.quantity,
+        })
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
     buttonKurang(index) {
       this.cart[index].quantity--
       if (this.cart[index].quantity <= 0) {

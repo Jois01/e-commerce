@@ -9,3 +9,14 @@ import cart from './components/cart.vue'
   </header>
   <RouterView />
 </template>
+<script>
+import axios from 'axios'
+
+export default {
+  components: {
+    navbar,
+    cart,
+  },
+
+}
+</script>
