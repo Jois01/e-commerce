@@ -43,20 +43,27 @@ export default {
       })
   },
   methods: {
-    addToCart() {
-      axios
-        .post('https://dummyjson.com/carts/addItem', {
-          productId: this.product.id,
-          price: this.product.price,
-          quantity: 1,
-        })
-        .then((response) => {
-          console.log(response.data)
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-    },
+  addToCart() {
+    const cartItem = {
+      id: this.product.id,
+      title: this.product.title,
+      price: this.product.price,
+      quantity: 1,
+    };
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItem = cart.find((item) => item.id === cartItem.id);
+
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      cart.push(cartItem);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Product added to cart!');
   },
+},
+
 }
 </script>
