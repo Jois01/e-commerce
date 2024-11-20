@@ -3,7 +3,7 @@
     <div class="items-center p-4 border-b border-gray-200 md:flex justify-between block">
       <h2 class="text-2xl ml-4">All Products</h2>
 
-      <form class="md:w-96 m-4">
+      <form class="md:w-96 m-4" @submit.prevent="searchProducts">
         <div class="relative">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <img src="../assets/searct.svg" class="size-6 item-center" />
@@ -36,8 +36,7 @@
           <h3 class="mt-2 text-sm text-gray-700 bg-gray-100 rounded-md w-24 text-center">
             {{ product.category }}
           </h3>
-          <!-- <div class="text-gray-700 mt-2">{{ product.description }}</div> -->
-          <p class="text-lg font-medium text-gray-900">{{ product.price }}</p>
+          <p class="text-lg font-medium text-gray-900">$ {{ product.price }}</p>
         </a>
       </div>
     </div>
@@ -52,15 +51,8 @@ export default {
     return {
       products: [],
       loading: true,
+      search: '',
     }
-  },
-  filters: {
-    currency(value) {
-      return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-      }).format(value)
-    },
   },
   mounted() {
     this.fetchProducts()
@@ -76,12 +68,16 @@ export default {
         this.loading = false
       }
     },
-    search() {
-      fetch('https://dummyjson.com/products/search?q=phone')
-        .then((res) => res.json())
-        .then((data) => {
-          this.products = data.products
-        })
+    async searchProducts() {
+      if (!this.search.trim()) {
+        return this.fetchProducts()
+      }
+      try {
+        const response = await axios.get(`https://dummyjson.com/products/search?q=${this.search}`)
+        this.products = response.data.products
+      } catch (error) {
+        console.error('Error searching products:', error)
+      }
     },
   },
 }

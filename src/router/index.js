@@ -8,6 +8,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/product',
@@ -19,11 +20,7 @@ const router = createRouter({
       name: 'Login',
       component: () => import('../views/LoginView.vue'),
     },
-    {
-      path: '/Register',
-      name: 'Register',
-      component: () => import('../views/RegisterView.vue'),
-    },
+
     {
       path: '/Cart',
       name: 'Cart',
@@ -33,6 +30,7 @@ const router = createRouter({
       path: '/DetailProduct:id',
       name: 'DetailProduct',
       component: () => import('../views/DetailProductView.vue'),
+      props: true,
     },
   ],
 })

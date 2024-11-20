@@ -11,7 +11,7 @@
         <p class="text-lg text-left justify-center">
           {{ product.description }}
         </p>
-        <p class="text-lg font-medium text-gray-900">{{ product.price }}</p>
+        <p class="text-xl font-medium text-gray-900 mt-4 mb-4">$ {{ product.price }}</p>
         <button
           class="bg-blue-500 text-white w-32 py-2 text-center rounded-md transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
           @click="addToCart"
@@ -42,8 +42,8 @@ export default {
         console.error(error)
       })
   },
-  methods:{
-    addToCart(product){
+  methods: {
+    addToCart(product) {
       const itemInCart = this.cart.find((item) => item.id === this.product.id)
       if (itemInCart) {
         itemInCart.quantity++
@@ -54,6 +54,6 @@ export default {
         })
       }
     },
-  }
+  },
 }
 </script>

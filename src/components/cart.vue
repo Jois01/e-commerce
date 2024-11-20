@@ -1,15 +1,11 @@
 <template>
   <div class="flex">
-    <!-- <img
+    <img
       :src="product.images"
       class="size-full object-cover object-center group-hover:opacity-75"
-    /> -->
-    <img
-      src="./icons/image.jpg"
-      class="size-20 object-cover object-center group-hover:opacity-75 rounded-md"
     />
-    <!-- <h3 class="mt-2 text-xl">{{ product.title }}</h3> -->
-    <h3 class="items-center text-center m-6 text-xl">produk 1</h3>
+  
+    <h3 class="mt-2 text-xl">{{ product.title }}</h3>
     <div class="flex justify-between">
       <div class="flex items-center">
         <button
@@ -20,11 +16,9 @@
         >
           <img src="./icons/kurang.svg" class="size-2 text-gray-900 dark:text-white" alt="" />
         </button>
-
-        <div class="text-center m-2">1</div>
-        <!-- <div class="text-center m-2">
+        <div class="text-center m-2">
           {{ item.quantity }}
-        </div> -->
+        </div>
         <button
           type="button"
           id="increment-button"
@@ -56,4 +50,28 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      cart: [],
+    }
+  },
+  methods: {
+    buttonKurang(index) {
+      this.cart[index].quantity--
+      if (this.cart[index].quantity <= 0) {
+        this.cart.splice(index, 1)
+      }
+    },
+    buttonTambah(index) {
+      this.cart[index].quantity++
+    },
+    removeFromCart(index) {
+      this.cart.splice(index, 1)
+    },
+  },
+}
+</script>

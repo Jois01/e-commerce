@@ -4,7 +4,7 @@ import cart from './components/cart.vue'
 </script>
 
 <template>
-  <header class="sticky top-0 ">
+  <header class="sticky top-0">
     <navbar />
   </header>
   <RouterView />

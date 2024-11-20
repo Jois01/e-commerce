@@ -77,7 +77,7 @@ export default {
           const data = await response.json()
           localStorage.setItem('token', data.token)
           alert('Login successful!')
-          this.$router.push('/home')
+          this.$router.push('/')
         } else {
           const error = await response.json()
           alert(error.message || 'Login failed.')

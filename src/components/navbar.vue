@@ -20,12 +20,12 @@ import { RouterLink, RouterView } from 'vue-router'
             <img class="w-8 rounded-full" src="./icons/image.jpg" alt="" />
             <div class="text-xl">Jois Tika</div>
           </div>
-          <button v-if="isLoggedIn"
+          <button 
             class="py-2 px-3 m-3 bg-red-500 rounded-md text-white shadow-md hover:bg-red-800"
           >
             logout
           </button>
-          <RouterLink v-else
+          <RouterLink 
             to="login"
             class="py-2 px-3 m-3 bg-blue-500 rounded-md text-white shadow-md hover:bg-blue-800"
           >
