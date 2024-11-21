@@ -1,10 +1,10 @@
 <template>
   <div
-    class="bg-white rounded-md container mx-auto flex m- md:px-24 md:py-10 md:flex-row flex-col items-center"
+    class="bg-white rounded-md container mx-auto flex m-8 md:px-24 md:py-10 md:flex-row flex-col items-center"
   >
-    <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
       <div class="col-sel-2">
-        <img :src="product.images" alt="image" />
+        <img :src="product.images" alt="image" class="w-96"/>
       </div>
       <div class="items-center justify-center m-10">
         <h1 class="text-3xl font-bold text-left">{{ product.title }}</h1>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { isLoggedIn } from '@/components/state'
 import axios from 'axios'
 
 export default {
@@ -43,27 +44,30 @@ export default {
       })
   },
   methods: {
-  addToCart() {
-    const cartItem = {
-      id: this.product.id,
-      title: this.product.title,
-      price: this.product.price,
-      quantity: 1,
-    };
+    addToCart() {
+      if (isLoggedIn.value) {
+        const cartItem = {
+          id: this.product.id,
+          title: this.product.title,
+          price: this.product.price,
+          quantity: 1,
+        }
 
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingItem = cart.find((item) => item.id === cartItem.id);
+        let cart = JSON.parse(localStorage.getItem('cart')) || []
+        const existingItem = cart.find((item) => item.id === cartItem.id)
 
-    if (existingItem) {
-      existingItem.quantity++;
-    } else {
-      cart.push(cartItem);
-    }
+        if (existingItem) {
+          existingItem.quantity++
+        } else {
+          cart.push(cartItem)
+        }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert('Product added to cart!');
+        localStorage.setItem('cart', JSON.stringify(cart))
+        alert('Product added to cart!')
+      } else {
+        alert('Please login to add product to cart')
+      }
+    },
   },
-},
-
 }
 </script>

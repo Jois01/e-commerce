@@ -5,9 +5,6 @@ import { user, isLoggedIn } from './state'
 
 const isProfileMenuOpen = ref(false)
 
-// const user = ref(null)
-// const isLoggedIn = ref(false)
-
 onMounted(() => {
   const storedUser = localStorage.getItem('user')
   if (storedUser) {
@@ -153,9 +150,6 @@ export default {
       const menuDropdown = document.getElementById('menu-dropdown')
       menuDropdown.classList.toggle('hidden')
     },
-    // isLoggedIn() {
-    //   return localStorage.getItem('token') !== null
-    // },
   },
 }
 </script>
