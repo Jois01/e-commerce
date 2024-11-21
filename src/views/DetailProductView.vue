@@ -4,7 +4,7 @@
   >
     <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
       <div class="col-sel-2">
-        <img :src="product.images" alt="image" class="w-96"/>
+        <img :src="product.images" alt="image" class="w-96" />
       </div>
       <div class="items-center justify-center m-10">
         <h1 class="text-3xl font-bold text-left">{{ product.title }}</h1>
@@ -48,6 +48,7 @@ export default {
       if (isLoggedIn.value) {
         const cartItem = {
           id: this.product.id,
+          images: this.product.images,
           title: this.product.title,
           price: this.product.price,
           quantity: 1,
