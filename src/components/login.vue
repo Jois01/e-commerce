@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { user, isLoggedIn } from './state'
 </script>
 <template>
   <div
@@ -45,7 +45,7 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
         <div class="text-center mt-8">
           <p class="text-sm text-gray-500 dark:text-gray-400">Don't have an account?</p>
-          <RouterLink to="/Register">register</RouterLink>
+          <div to="/Register">register</div>
         </div>
       </form>
       <div class="card">
@@ -69,13 +69,20 @@ export default {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            username: this.username,
-            password: this.password,
+            username: username.value,
+            password: password.value,
           }),
         })
         if (response.ok) {
           const data = await response.json()
           localStorage.setItem('token', data.token)
+          localStorage.setItem(
+            'user',
+            JSON.stringify({ username: data.username, image: data.image }),
+          )
+          user.value = { username: data.username, image: data.image }
+          isLoggedIn.value = true
+
           alert('Login successful!')
           this.$router.push('/')
         } else {

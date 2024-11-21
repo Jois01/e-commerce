@@ -1,8 +1,32 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { user, isLoggedIn } from './state'
+
+const isProfileMenuOpen = ref(false)
+
+// const user = ref(null)
+// const isLoggedIn = ref(false)
+
+onMounted(() => {
+  const storedUser = localStorage.getItem('user')
+  if (storedUser) {
+    user.value = JSON.parse(storedUser)
+    isLoggedIn.value = true
+  }
+})
+
+const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  user.value = null
+  isLoggedIn.value = false
+  alert('Logged out successfully!')
+}
 </script>
+
 <template>
-  <nav class="bg-white w-full p-6">
+  <nav class="bg-white w-full p-6 shadow-md">
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <img class="w-48 m-4" src="./icons/logoipsum.png" alt="" />
@@ -10,30 +34,45 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink class="text-xl m-4 hidden md:block" to="/product">Produck</RouterLink>
         <div class="m-3 px-6 hidden md:block">
           <RouterLink to="/Cart">
-            <img src="./icons/cart.svg" class="size-6 " alt="" />
+            <img src="./icons/cart.svg" class="size-6" alt="" />
           </RouterLink>
         </div>
       </div>
-      <div class="hidden md:block">
-        <div class="ml-10 flex">
-          <div class="m-4 gap-2 flex">
-            <img class="w-8 rounded-full" src="./icons/image.jpg" alt="" />
-            <div class="text-xl">Jois Tika</div>
-          </div>
-          <button 
-            class="py-2 px-3 m-3 bg-red-500 rounded-md text-white shadow-md hover:bg-red-800"
+      <div class="hidden md:block relative" v-if="isLoggedIn">
+        <button
+          type="button"
+          @click="isProfileMenuOpen = !isProfileMenuOpen"
+          class="relative flex max-w-xs items-center m-4"
+          id="user-menu-button"
+        >
+          <img
+            class="w-10 rounded-full"
+            :src="user?.image || './icons/default-avatar.png'"
+            alt=""
+          />
+          <div class="m-2">{{ user?.username }}</div>
+        </button>
+
+        <div
+          v-if="isProfileMenuOpen"
+          class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <button
+            @click="logout"
+            type="submit"
+            class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300"
           >
-            logout
+            Logout
           </button>
-          <RouterLink 
-            to="login"
-            class="py-2 px-3 m-3 bg-blue-500 rounded-md text-white shadow-md hover:bg-blue-800"
-          >
-            login
-          </RouterLink>
-         
         </div>
       </div>
+      <RouterLink
+        to="/Login"
+        class="py-2 px-3 bg-blue-500 rounded-md text-white shadow-md hover:bg-blue-800"
+        v-else
+      >
+        Login
+      </RouterLink>
 
       <div id="mobile-menu" class="md:hidden flex items-center px-10">
         <div
@@ -60,41 +99,63 @@ import { RouterLink, RouterView } from 'vue-router'
 
     <div id="menu-dropdown" class="hidden md:hidden">
       <div class="text-md ml-auto m-3">
-        <div class="m-3 hover:border hover:border-blue-500 p-2 rounded-md">
-          <RouterLink to="/">Home</RouterLink>
-        </div>
-        <div class="m-3 hover:border hover:border-blue-500 p-2 rounded-md">
-          <RouterLink to="/product">Produck</RouterLink>
-        </div>
+        <RouterLink to="/">
+          <div class="m-3 hover:border hover:border-blue-500 p-2 rounded-md">Home</div>
+        </RouterLink>
+        <RouterLink to="/product">
+          <div class="m-3 hover:border hover:border-blue-500 p-2 rounded-md">Produck</div>
+        </RouterLink>
         <RouterLink to="/Cart" class="flex m-3 hover:border hover:border-blue-500 p-2 rounded-md">
           <img src="./icons/cart.svg" class="size-6" alt="" />
-          <div class="text-gray-700">cart</div>
+          <div class="text-gray-700">Cart</div>
         </RouterLink>
-        <div class="m-3 hover:border hover:border-blue-500 p-2 rounded-md">
-          <div class="profole gap-2 flex">
-            <img class="w-8 rounded-full" src="./icons/image.jpg" alt="" />
-            <div class="mt-1">Jois Tika</div>
+        <div class="m-3 hover:border hover:border-blue-500 p-2 rounded-md" v-if="isLoggedIn">
+          <div class="profile gap-2 flex justify-between">
+            <div class="profile flex">
+              <img
+                class="w-10 rounded-full"
+                :src="user?.image || './icons/default-avatar.png'"
+                alt=""
+              />
+              <div class="m-2">{{ user?.username }}</div>
+            </div>
+            <button
+              @click="logout"
+              class="py-2 px-3 bg-red-500 rounded-md text-white shadow-md hover:bg-red-800"
+            >
+              Logout
+            </button>
           </div>
         </div>
-        <div class="m-5 flex">
+        <div class="m-5 flex" v-else>
           <RouterLink
-            to="login"
+            to="/Login"
             class="py-2 px-3 bg-blue-500 rounded-md text-white shadow-md hover:bg-blue-800"
           >
-            login
+            Login
           </RouterLink>
         </div>
       </div>
     </div>
   </nav>
 </template>
+
 <script>
 export default {
+  name: 'Navbar',
+  data() {
+    return {
+      Open: false,
+    }
+  },
   methods: {
     toggleMenu() {
       const menuDropdown = document.getElementById('menu-dropdown')
       menuDropdown.classList.toggle('hidden')
     },
+    // isLoggedIn() {
+    //   return localStorage.getItem('token') !== null
+    // },
   },
 }
 </script>

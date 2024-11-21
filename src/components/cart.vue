@@ -26,13 +26,11 @@
                     +
                   </button>
                 </div>
-                <span class="text-lg font-medium">${{ item.price * item.quantity }}</span>
+                <span class="text-lg font-medium">${{ item.price }}</span>
                 <button @click="removeFromCart(index)" class="text-red-500">Remove</button>
               </div>
               <div class="text-right mt-6">
-                <h3 class="text-xl font-bold">
-                  Total: 
-                </h3>
+                <h3 class="text-xl font-bold">Total:</h3>
               </div>
             </div>
             <div v-else class="text-center py-10">
@@ -48,19 +46,22 @@
         <hr class="mt-2" />
         <div class="mt-4">
           <div class="flex justify-between">
-            <h5 class="text-lg font-bold">Items Subtotal
-            </h5>
-            <div class="total text-lg font-bold">${{ cart.reduce((total, item) => total + item.price * item.quantity, 0) }}</div>
+            <h5 class="text-lg font-bold">Items Subtotal</h5>
+            <div class="total text-lg font-bold">
+              ${{ cart.reduce((total, item) => total + item.price * item.quantity, 0) }}
+            </div>
           </div>
           <div class="flex justify-between">
-          <div>Promo</div>
-          <div class="promo">-</div>
+            <div>Promo</div>
+            <div class="promo">-</div>
           </div>
           <div class="flex justify-between">
-            <h5 class="text-lg font-bold">Order Total
-            </h5>
-            <div class="total text-lg font-bold">${{ cart.reduce((total, item) => total + item.price * item.quantity, 0) }}</div>
-          </div>          <div>have a promo code?</div>
+            <h5 class="text-lg font-bold">Order Total</h5>
+            <div class="total text-lg font-bold">
+              ${{ cart.reduce((total, item) => total + item.price * item.quantity, 0) }}
+            </div>
+          </div>
+          <div>have a promo code?</div>
           <input type="text" class="text-center p-2" placeholder="XXX-XXX-XXX" />
           <button class="ml-2">apply</button>
         </div>

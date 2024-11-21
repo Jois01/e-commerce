@@ -4,14 +4,16 @@
       <h2 class="text-2xl ml-4">All Products</h2>
 
       <form class="md:w-96 m-4" @submit.prevent="searchProducts">
-        <div class="relative">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <div class="flex">
+          <div
+            class="inset-y-0 start-0 flex items-center ps-3 item-center p-2 rounded-l-lg border border-black bg-gray-300 pointer-events-none"
+          >
             <img src="../assets/searct.svg" class="size-6 item-center" />
           </div>
           <input
             type="search"
             id="default-search"
-            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-black rounded-r-lg bg-gray-50 hover:border-blue-500"
             v-model="search"
             placeholder="Search..."
           />
