@@ -47,7 +47,7 @@
               <div
                 v-for="(item, index) in cart"
                 :key="item.id"
-                class="grid grid-cols-2 justify-between items-center mb-4 md:hidden"
+                class="grid grid-cols-2 justify-between items-center mb-4 md:hidden p-2"
               >
                 <div class="img">
                   <img
@@ -57,14 +57,14 @@
                   />
                 </div>
                 <div class="content">
-                  <h2 class="text-lg font-medium m-2">{{ item.title }}</h2>
+                  <h2 class="text-sm font-medium m-2">{{ item.title }}</h2>
                   <div class="button m-2">
                     <div class="flex items-center">
-                      <button @click="buttonKurang(index)" class="px-3 py-1 bg-gray-200 rounded">
+                      <button @click="buttonKurang(index)" class="px-2 bg-gray-200 rounded">
                         -
                       </button>
                       <span class="mx-3">{{ item.quantity }}</span>
-                      <button @click="buttonTambah(index)" class="px-3 py-1 bg-gray-200 rounded">
+                      <button @click="buttonTambah(index)" class="px-2 bg-gray-200 rounded">
                         +
                       </button>
                     </div>
@@ -78,7 +78,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="size-6"
+                        class="size-5"
                       >
                         <path
                           stroke-linecap="round"
