@@ -8,7 +8,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: { requiresAuth: true },
     },
     {
       path: '/product',
@@ -25,6 +24,7 @@ const router = createRouter({
       path: '/Cart',
       name: 'Cart',
       component: () => import('../views/CartView.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/product/:id',
@@ -33,6 +33,15 @@ const router = createRouter({
       props: true,
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = localStorage.getItem('token') !== null // Cek token di localStorage
+  if (to.matched.some((record) => record.meta.requiresAuth) && !isLoggedIn) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

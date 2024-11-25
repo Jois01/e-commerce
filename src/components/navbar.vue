@@ -1,10 +1,11 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { user, isLoggedIn } from './state'
 
 const isProfileMenuOpen = ref(false)
-
+const router = useRouter()
 onMounted(() => {
   const storedUser = localStorage.getItem('user')
   if (storedUser) {
@@ -19,11 +20,12 @@ const logout = () => {
   user.value = null
   isLoggedIn.value = false
   alert('Logged out successfully!')
+  router.push('/')
 }
 </script>
 
 <template>
-  <nav class="bg-white w-full p-6 shadow-md">
+  <nav class="bg-white w-full md:p-6 shadow-md">
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <img class="w-48 m-4" src="./icons/logoipsum.png" alt="" />
@@ -65,7 +67,7 @@ const logout = () => {
       </div>
       <RouterLink
         to="/Login"
-        class="py-2 px-3 bg-blue-500 rounded-md text-white shadow-md hover:bg-blue-800"
+        class="py-2 px-3 hidden md:block bg-blue-500 rounded-md text-white shadow-md hover:bg-blue-800"
         v-else
       >
         Login
@@ -94,7 +96,7 @@ const logout = () => {
       </div>
     </div>
 
-    <div id="menu-dropdown" class="hidden md:hidden">
+    <div id="menu-dropdown" class="hidden md:hidden py-3">
       <div class="text-md ml-auto m-3">
         <RouterLink to="/">
           <div class="m-3 hover:border hover:border-blue-500 p-2 rounded-md">Home</div>
